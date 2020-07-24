@@ -16,7 +16,7 @@ conn.on('connected', function () { // 连接成功回调
 })
 
 // 2.得到对应特定集合的Model
-// 2.1.字义Schema(描述文档结构)
+// 2.1.定义Schema(描述文档结构)
 const userSchema = mongoose.Schema({ // 通过约束Schema指定文档的结构:属性名/属性值的类型,是否是必须的,默认值
   username: {type: String, required: true}, // 用户名
   password: {type: String, required: true}, // 密码
