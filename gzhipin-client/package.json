@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.3.3",
+    "blueimp-md5": "^2.16.0",
+    "mongoose": "^5.9.25",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^6.0.1",
