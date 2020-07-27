@@ -2,16 +2,23 @@
 import {
   AUTH_SUCCESS,
   ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER,
 } from './action-types'
 import {
   reqRegister,
   reqLogin,
+  reqUpdateUser,
 } from '../api'
 
 // 授权成功的同步action
 const authSuccess = (user) => ({type: AUTH_SUCCESS, data: user})
 // 错误提示信息的同步action
 const errorMsg = (msg) => ({type: ERROR_MSG, data: msg})
+// 接收用户的同步action
+const receiveUser = (user) => ({type: RECEIVE_USER, data: user})
+// 重置用户的同步action
+export const resetUser = (msg) => ({type: RESET_USER, data: msg})
 
 // 注册异步action
 export const register = (user) => {
@@ -37,7 +44,7 @@ export const register = (user) => {
   }
 }
 
-// 登陆异步action
+// 登录异步action
 export const login = (user) => {
   const {username, password} = user
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
@@ -55,6 +62,19 @@ export const login = (user) => {
     } else { // 失败
       // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg))
+    }
+  }
+}
+
+// 更新用户异步action
+export const updateUser = (user) => {
+  return async dispatch => {
+    const response = await reqUpdateUser(user)
+    const result = response.data
+    if (result.code === 0) { // 更新成功:data
+      dispatch(receiveUser(result.data))
+    } else { // 更新失败:msg
+      dispatch(resetUser(result.msg))
     }
   }
 }
