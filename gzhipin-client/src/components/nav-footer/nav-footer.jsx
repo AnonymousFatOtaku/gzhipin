@@ -10,7 +10,6 @@ class NavFooter extends Component {
 
   static propTypes = {
     navList: PropTypes.array.isRequired,
-    unReadCount: PropTypes.number.isRequired
   }
 
   render() {
