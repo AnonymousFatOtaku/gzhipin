@@ -7,7 +7,10 @@ import {
   RECEIVE_USER,
   RESET_USER,
   RECEIVE_USER_LIST,
+  RECEIVE_MSG_LIST,
+  RECEIVE_MSG,
 } from './action-types'
+
 import {getRedirectTo} from '../utils'
 
 const initUser = {
@@ -46,8 +49,34 @@ function userList(state = initUserList, action) {
   }
 }
 
+const initChat = {
+  users: {}, // 所有用户信息的对象,属性名:userid,属性值:{username,header}
+  chatMsgs: [], // 当前用户所有相关msg的数组
+}
+
+// 产生聊天状态的reducer
+function chat(state = initChat, action) {
+  switch (action.type) {
+    case RECEIVE_MSG_LIST:  // data:{users,chatMsgs}
+      const {users, chatMsgs, userid} = action.data
+      return {
+        users,
+        chatMsgs,
+      }
+    case RECEIVE_MSG: // data:chatMsg
+      const {chatMsg} = action.data
+      return {
+        users: state.users,
+        chatMsgs: [...state.chatMsgs, chatMsg],
+      }
+    default:
+      return state
+  }
+}
+
 // 通过combineReducers合并多个reducer，向外暴露的状态的结构为：{xxx:0,yyy:1}
 export default combineReducers({
   user,
-  userList
+  userList,
+  chat
 })
