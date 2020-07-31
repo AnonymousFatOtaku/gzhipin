@@ -166,3 +166,15 @@ async function getMsgList(dispatch, userid) {
     dispatch(receiveMsgList({users, chatMsgs, userid}))
   }
 }
+
+// 读取消息的异步action
+export const readMsg = (from, to) => {
+  return async dispatch => {
+    const response = await reqReadMsg(from)
+    const result = response.data
+    if (result.code === 0) {
+      const count = result.data
+      dispatch(msgRead({count, from, to}))
+    }
+  }
+}
