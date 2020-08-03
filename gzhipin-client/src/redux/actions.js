@@ -67,7 +67,7 @@ export const register = (user) => {
 // 登录异步action
 export const login = (user) => {
   const {username, password} = user
-  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+  // 做表单的前台检查,如果不通过则返回一个errorMsg的同步action
   if (!username) {
     return errorMsg('用户名不能为空!')
   } else if (!password) {
